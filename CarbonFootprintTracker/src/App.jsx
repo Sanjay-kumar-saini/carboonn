@@ -8,6 +8,9 @@ import Contribution from './Contribution'
 import LoginPage from './LoginPage'
 import SignUpPage from './SignUpPage'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TrackFootprint from './TrackFootprint'
+import Leaderboard from './Leaderboard'
+
 
 
 function App() {
@@ -20,10 +23,17 @@ function App() {
     <Route path="/" element={<Navbar />} />
             <Route path="/LoginPage" element={<LoginPage />} />
             <Route path='/SignUpPage' element={<SignUpPage />} />
+            
+        
+           
     </Routes>
+    
     </Router>
     <Hero/>
-        <Contribution/>
+      <Contribution/>
+      <TrackFootprint/>
+      <Leaderboard/>
+        
 
     </>
   )

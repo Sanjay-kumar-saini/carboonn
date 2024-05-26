@@ -2,7 +2,7 @@ import React from 'react'
 
 function Hero() {
   return (
-    <div className='md:h-screen w-full relative max-h-screen '>
+    <div className='md:h-screen w-full relative max-h-screen z-0 '>
     <img src="https://i.pinimg.com/564x/07/a3/63/07a363a320934fbdf1e6c61243e6d496.jpg" alt=""  className='w-full h-2/3 object-cover content-center'/>
 
     <div className='absolute w-full h-full top-0 left-0 bg-gray-500/15'>

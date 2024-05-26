@@ -4,18 +4,20 @@ import { FaChevronDown, FaMinus } from 'react-icons/fa'
 import { FaCalculator } from 'react-icons/fa';
 import { FaArrowDown } from 'react-icons/fa';
 import { FaLeaf } from 'react-icons/fa';
-import CarbonReductionPage from './CarbonReductionPage';
 import SignupPage from './SignUpPage';
+
+
+
+
+
 
 function Contribution() {
   
     const [showDiv, setShowDiv] = useState(false);
     const [userstatus,setUserStatus] = useState(false);
-    const [isButtonClicked,setClick] = useState(false);
 
-    const handleClick = ()=>{
-      setClick(!isButtonClicked);
-    }
+
+
 
     const handleUserStatus=()=>{
       setUserStatus(!userstatus);
@@ -32,8 +34,6 @@ function Contribution() {
   const toggleEventDescription = (eventId) => {
     setExpandedEvent(expandedEvent === eventId ? null : eventId);
   };
-
-
 
 
 
@@ -64,7 +64,7 @@ function Contribution() {
               </>
             )}
             <div className="flex justify-center mt-2">
-              <button className="bg-yellow-600 px-4 py-2 rounded-md text-white" onClick={handleClick}>Calculate</button>
+              <button className="bg-yellow-600 px-4 py-2 rounded-md text-white" >Calculate</button>
             </div>
           </div>
 
@@ -88,7 +88,7 @@ function Contribution() {
               </>
             )}
             <div className="flex justify-center mt-2">
-              <button className="bg-blue-500 px-4 py-2 rounded-md text-white"   onClick={handleLearnMoreClick}>Learn more</button>
+              <button className="bg-blue-500 px-4 py-2 rounded-md text-white">Learn more</button>
             </div>
           </div>
 
@@ -123,17 +123,10 @@ function Contribution() {
 
       </div>
 
-      {userstatus && isButtonClicked ? (
-        <div className="p-4 bg-blue-500 text-white rounded">
-          <h2 className="text-2xl">This is Div 2</h2>
-          <p>State is true</p>
-        </div>
-      ) :''}
 
 
-{!userstatus && isButtonClicked ? (
-       <SignupPage/>
-      ) :''}
+
+
 
 
 

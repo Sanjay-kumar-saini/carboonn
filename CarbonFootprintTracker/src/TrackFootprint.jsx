@@ -3,8 +3,9 @@ import axios from 'axios';
 
 function TrackFootprint() {
   const [footprint, setFootprint] = useState(0);
-  const [userId, setUserId] = useState(''); // Replace with logic for user ID
+  const [userId, setUserId] = useState(''); 
   const [history, setHistory] = useState([]);
+  const [apiBaseUrl, setApiBaseUrl] = useState('');
   const [topDaily, setTopDaily] = useState([]);
   const [topMonthly, setTopMonthly] = useState([]);
   const [topYearly, setTopYearly] = useState([]);
@@ -15,32 +16,53 @@ function TrackFootprint() {
     setFootprint(parseFloat(event.target.value));
   };
 
- 
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const response = await axios.get('/config.json'); // Fetch configuration file
+        setApiBaseUrl(response.data.apiBaseUrl);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setErrorMessage('');
+    fetchConfig();
+  }, []); // Run on component mount
 
+  const handleSubmit = async () => {
+    const url = `${apiBaseUrl}/footprints`; // Construct URL using fetched baseUrl
     try {
-      const response = await axios.post('/footprints', { userId, footprint });
-      console.log(response.data);
-      setFootprint(0); // Clear footprint input after submission
-      fetchHistory(); // Update history after submission
+      const response = await fetch(url, {
+        method: 'POST',
+        // ... other request options
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId, token })
+
+      })  
+      const data = await response.json();
+      // Accessing 0th and 1st index of the data items
+      console.log(data[0]);
+      console.log(data[1]);
+      // ... handle response
     } catch (error) {
       console.error(error);
-      setErrorMessage('Error storing footprint. Please try again.');
-    } finally {
-      setIsLoading(false);
     }
-  };
+  };  
+
+
+
+  // ...
+
+
 
   const fetchHistory = async () => {
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const response = await axios.get(/footprints/user/${userId});
+      const response = await axios.get(`/footprints/user/${userId}`);
       console.log(response.data);
       setHistory(response.data);
     } catch (error) {
@@ -54,7 +76,7 @@ function TrackFootprint() {
   const fetchTopRankings = async () => {
     setIsLoading(true);
     setErrorMessage('');
-
+ 
     try {
       const dailyResponse = await axios.get('/footprints/daily/top5');
       const monthlyResponse = await axios.get('/footprints/monthly/top5');
@@ -75,9 +97,9 @@ function TrackFootprint() {
     fetchHistory();
     fetchTopRankings();
   }, []); // Run these on component mount
-
+  
   return (
-    <div className="track-footprint">
+    <div className="track-footprint h-screeen w-full">
       <h1>Track Your Carbon Footprint</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="footprint">Daily CO2 Footprint (kg):</label>
@@ -94,7 +116,11 @@ function TrackFootprint() {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
      
-      <h2>Your Footprint History</h2>
+
+{/* The carbon footprint calculation section gors here--- */}
+
+
+       {/* <h2>Your Footprint History</h2>
       {isLoading ? (
         <p>Loading history...</p>
       ) : history.length > 0 ? (
@@ -107,9 +133,12 @@ function TrackFootprint() {
         </ul>
       ) : (
         <p>No footprint data found yet.</p>
-      )}
+      )} */}
+     <label htmlFor="">Vehicle: </label> <input type="text" />
+      </div> 
+      
     
-      </div> );
+    ); 
       }
 
       export default TrackFootprint;
