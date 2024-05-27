@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -10,12 +10,18 @@ import SignUpPage from './SignUpPage'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrackFootprint from './TrackFootprint'
 import Leaderboard from './Leaderboard'
+import axios from 'axios'
 
 
-
-function App() {
-  const [count, setCount] = useState(0)
-
+const App=()=> {
+  const [data , setData] = useState([]);
+  const fetchData = async ()=>{
+    const response = await axios.get('http://localhost:3000/api');
+    setData(response,data);
+    useEffect(() => {
+      fetchData();
+    });
+}
   return (
     <>
     <Router>
